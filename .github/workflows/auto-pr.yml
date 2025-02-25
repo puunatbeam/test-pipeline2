@@ -8,15 +8,14 @@ jobs:
   syncMain:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout release branch
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           ref: main
 
-      - name: Reset promotion branch
+      - name: Fetch and reset branch
         run: |
-          git fetch origin ${{ github.ref_name }}
-          git reset --hard ${{ github.ref_name }}
+          git fetch origin
+          git checkout -B ${{ github.ref_name }} origin/${{ github.ref_name }}
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
