@@ -21,7 +21,7 @@ jobs:
       - name: Get Last Commit Message
         id: last_commit
         run: |
-          LAST_COMMIT_MSG=$(git log -1 --pretty=%B)
+          LAST_COMMIT_MSG=$(git log origin/${{ github.ref_name }} -1 --pretty=%B)
           echo "commit_message=$LAST_COMMIT_MSG" >> $GITHUB_ENV
 
       - name: check variable
