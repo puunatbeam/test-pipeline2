@@ -12,6 +12,11 @@ jobs:
         with:
           ref: main
 
+      - name: check title and body
+        run:
+          echo ${{ github.event.pull_request.title }}
+          echo ${{ github.event.pull_request.body }}
+
       - name: Fetch and reset branch
         run: |
           git fetch origin
@@ -20,4 +25,4 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
-          branch: main-${{ github.ref_name }}-promotion
+          branch: ${{ github }}-main
