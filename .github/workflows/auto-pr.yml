@@ -18,6 +18,11 @@ jobs:
           echo ${{ github.head_ref }}
           echo ${{ github.workspace }}
 
+      - name: Fetch and reset branch
+        run: |
+          git fetch origin
+          git reset --hard origin/${{ github.ref_name }}
+
       - name: Get Last Commit Message
         id: last_commit
         run: |
@@ -27,11 +32,6 @@ jobs:
       - name: check variable
         run:
           echo ${{ env.commit_message }}
-
-      - name: Fetch and reset branch
-        run: |
-          git fetch origin
-          git reset --hard origin/${{ github.ref_name }}
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
