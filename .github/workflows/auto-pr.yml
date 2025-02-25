@@ -15,7 +15,7 @@ jobs:
       - name: Fetch and reset branch
         run: |
           git fetch origin
-          git checkout -B ${{ github.ref_name }} origin/${{ github.ref_name }}
+          git reset --hard origin/${{ github.ref_name }}
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
