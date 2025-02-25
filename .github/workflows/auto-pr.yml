@@ -17,6 +17,13 @@ jobs:
           echo ${{ github.ref }}
           echo ${{ github.head_ref }}
           echo ${{ github.workspace }}
+          echo ${{ github. }}
+
+      - name: Get Last Commit Message
+        id: last_commit
+        run: |
+          LAST_COMMIT_MSG=$(git log -1 --pretty=%B)
+          echo "commit_message=$LAST_COMMIT_MSG" >> $GITHUB_ENV
 
       - name: Fetch and reset branch
         run: |
