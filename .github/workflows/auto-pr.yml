@@ -36,6 +36,6 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
-          branch: ${{ github.ref_name }}-main
+          branch: ${{ github.ref_name }}-${{ github.sha }}-main
           title: "${{ env.commit_message }} (to main)"
           body: "Automated changes by [this-pull-request](${{ env.pr_url }})"
