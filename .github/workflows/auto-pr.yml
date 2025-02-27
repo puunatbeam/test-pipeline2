@@ -37,3 +37,4 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           branch: ${{ github.ref_name }}-main
+          title: "${{ env.commit_message }} (to main)"
