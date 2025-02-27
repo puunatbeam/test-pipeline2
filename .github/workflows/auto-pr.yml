@@ -30,10 +30,12 @@ jobs:
           PR_BODY=$(echo "$RESPONSE" | jq -r '.items[0].body')
           PR_TITLE=$(echo "$RESPONSE" | jq -r '.items[0].title')
           PR_URL=$(echo "$RESPONSE" | jq -r '.items[0].html_url')
-          echo "pr_number=$PR_NUMBER" >> $GITHUB_ENV
-          echo "pr_body=$PR_BODY" >> $GITHUB_ENV
-          echo "pr_title=$PR_TITLE" >> $GITHUB_ENV
-          echo "pr_url=$PR_URL" >> $GITHUB_ENV
+
+          # Ensure empty values are handled properly
+          [[ -n "$PR_NUMBER" ]] && echo "pr_number=$PR_NUMBER" >> $GITHUB_ENV || echo "pr_number=null" >> $GITHUB_ENV
+          [[ -n "$PR_BODY" ]] && echo "pr_body=$PR_BODY" >> $GITHUB_ENV || echo "pr_body=null" >> $GITHUB_ENV
+          [[ -n "$PR_TITLE" ]] && echo "pr_title=$PR_TITLE" >> $GITHUB_ENV || echo "pr_title=null" >> $GITHUB_ENV
+          [[ -n "$PR_URL" ]] && echo "pr_url=$PR_URL" >> $GITHUB_ENV || echo "pr_url=null" >> $GITHUB_ENV
 
       - name: check variable
         run:
@@ -46,3 +48,5 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           branch: ${{ github.ref_name }}-main
+          title: "${{ env.pr_title }} (to main)"
+          body: 'Automated changes by [this-pull-request](${{ env.pr_url }}) with Body \n ${{ env.body }}'
