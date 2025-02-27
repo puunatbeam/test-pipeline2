@@ -43,10 +43,12 @@ jobs:
 
       - name: Cherry-pick the latest commit from release branch
         run: |
-          git cherry-pick ${{ github.sha }}
+          git cherry-pick --strategy=recursive -X theirs ${{ github.sha }}
 
-      - name: Push new branch
+      - name: Commit & Push new branch
         run: |
+          git add .
+          git commit -m "Cherry-picked commit from ${{ github.ref_name }} with unresolved conflicts" || echo "No changes to commit"
           git push origin ${{ env.new_branch_name }}
 
       - name: Create Pull Request
