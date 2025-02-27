@@ -3,6 +3,11 @@ on:
   push:
     branches:
       - "release-*"
+      -
+permissions:
+  contents: write
+  pull-requests: write
+  workflows: write  # 🔥 This is required to modify workflow files
 
 jobs:
   syncMain:
