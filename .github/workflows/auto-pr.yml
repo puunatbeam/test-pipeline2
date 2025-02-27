@@ -33,7 +33,7 @@ jobs:
 
           # Ensure empty values are handled properly
           [[ -n "$PR_BODY" ]] && echo "pr_body=\"$PR_BODY\"" >> $GITHUB_ENV || echo "pr_body=can not fetch body from last commit" >> $GITHUB_ENV
-          [[ -n "$PR_URL" ]] && echo "pr_url=$PR_URL"" >> $GITHUB_ENV || echo "pr_url=''" >> $GITHUB_ENV
+          [[ -n "$PR_URL" ]] && echo "pr_url=$PR_URL"" >> $GITHUB_ENV || echo "pr_url=null" >> $GITHUB_ENV
 
       - name: check variable
         run:
