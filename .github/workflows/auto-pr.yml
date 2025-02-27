@@ -39,21 +39,10 @@ jobs:
           echo "pr_number=$PR_NUMBER" >> $GITHUB_ENV
           echo "pr_url=https://github.com/${{ github.repository }}/pull/$PR_NUMBER" >> $GITHUB_ENV
 
-      - name: Create new branch from main
-        run: |
-          NEW_BRANCH="main-${{ github.ref_name }}-${{ github.sha }}"
-          echo "new_branch_name=$NEW_BRANCH" >> $GITHUB_ENV
-          
-          git checkout -b "$NEW_BRANCH"
-
       - name: Cherry-pick the latest commit from release branch
         run: |
           git cherry-pick --strategy=recursive -X theirs ${{ github.sha }}
-
-      # Commit all changed files back to the repository
-      - uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          create_branch: 'true'
+          git push
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
