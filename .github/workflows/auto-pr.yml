@@ -21,7 +21,9 @@ jobs:
         id: last_commit
         run: |
           LAST_COMMIT_SHA=$(git rev-parse origin/${{ github.ref_name }})
+          LAST_COMMIT_MSG=$(git log origin/${{ github.ref_name }} -1 --pretty=%B)
           echo "commit_sha=$LAST_COMMIT_SHA" >> $GITHUB_ENV
+          echo "commit_message=$LAST_COMMIT_MSG" >> $GITHUB_ENV
 
       - name: Get Data From Last Commit
         run: |
@@ -32,10 +34,10 @@ jobs:
           PR_URL=$(echo "$RESPONSE" | jq -r '.items[0].html_url')
 
           # Ensure empty values are handled properly
-          [[ -n "$PR_NUMBER" ]] && echo "pr_number=$PR_NUMBER" >> $GITHUB_ENV || echo "pr_number=null" >> $GITHUB_ENV
-          [[ -n "$PR_BODY" ]] && echo "pr_body=\"$PR_BODY\"" >> $GITHUB_ENV || echo "pr_body=null" >> $GITHUB_ENV
-          [[ -n "$PR_TITLE" ]] && echo "pr_title=$PR_TITLE" >> $GITHUB_ENV || echo "pr_title=null" >> $GITHUB_ENV
-          [[ -n "$PR_URL" ]] && echo "pr_url=$PR_UR"" >> $GITHUB_ENV || echo "pr_url=null" >> $GITHUB_ENV
+          [[ -n "$PR_NUMBER" ]] && echo "pr_number=$PR_NUMBER" >> $GITHUB_ENV || echo "pr_number=0" >> $GITHUB_ENV
+          [[ -n "$PR_BODY" ]] && echo "pr_body=\"$PR_BODY\"" >> $GITHUB_ENV || echo "pr_body=can not fetch body from last commit" >> $GITHUB_ENV
+          [[ -n "$PR_TITLE" ]] && echo "pr_title=$PR_TITLE" >> $GITHUB_ENV || echo "pr_title=${{ env.commit_message}}" >> $GITHUB_ENV
+          [[ -n "$PR_URL" ]] && echo "pr_url=$PR_URL"" >> $GITHUB_ENV || echo "pr_url=''" >> $GITHUB_ENV
 
       - name: check variable
         run:
@@ -49,4 +51,4 @@ jobs:
         with:
           branch: ${{ github.ref_name }}-main
           title: "${{ env.pr_title }} (to main)"
-          body: "Automated changes by [this-pull-request](${{ env.pr_url }}) with Body ${{ env.body }}"
+          body: "Automated changes by [this-pull-request](${{ env.pr_url }}) with Body ${{ \n\n }} ${{ env.body }}"
