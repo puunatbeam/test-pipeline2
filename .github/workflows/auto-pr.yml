@@ -45,4 +45,4 @@ jobs:
         with:
           branch: ${{ github.ref_name }}-main
           title: "${{ env.commit_message }} (to main)"
-          body: "Automated changes by [this-pull-request](${{ env.pr_url }}) with Body `\n\n` ${{ env.body }}"
+          body: "Automated changes by [this-pull-request](${{ env.pr_url }}) with Body \n\n ${{ env.pr_body }}"
