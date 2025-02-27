@@ -14,9 +14,7 @@ jobs:
 
       - name: check var
         run:
-          echo ${{ github.ref }}
-          echo ${{ github.head_ref }}
-          echo ${{ github.workspace }}
+          echo ${{ github.sha }}
 
       - name: Fetch and reset branch
         run: |
