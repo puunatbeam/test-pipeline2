@@ -49,6 +49,7 @@ jobs:
       - name: Cherry-pick the latest commit from release branch
         run: |
           git cherry-pick --strategy=recursive -X theirs ${{ github.sha }}
+          git push
 
       # Commit all changed files back to the repository
       #- uses: stefanzweifel/git-auto-commit-action@v5
