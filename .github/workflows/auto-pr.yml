@@ -30,17 +30,17 @@ jobs:
           PR_BODY=$(echo "$RESPONSE" | jq -r '.items[0].body')
           PR_TITLE=$(echo "$RESPONSE" | jq -r '.items[0].title')
           PR_URL=$(echo "$RESPONSE" | jq -r '.items[0].html_url')
-          echo "PR_NUMBER=$PR_NUMBER" >> $GITHUB_ENV
-          echo "PR_BODY=$PR_BODY" >> $GITHUB_ENV
-          echo "PR_TITLE=$PR_TITLE" >> $GITHUB_ENV
-          echo "PR_URL=$PR_URL" >> $GITHUB_ENV
+          echo "pr_number=$PR_NUMBER" >> $GITHUB_ENV
+          echo "pr_body=$PR_BODY" >> $GITHUB_ENV
+          echo "pr_title=$PR_TITLE" >> $GITHUB_ENV
+          echo "pr_url=$PR_URL" >> $GITHUB_ENV
 
       - name: check variable
         run:
-          echo ${{ env.PR_NUMBER }}
-          echo ${{ env.PR_BODY }}
-          echo ${{ env.PR_TITLE }}
-          echo ${{ env.PR_URL }}
+          echo ${{ env.pr_number }}
+          echo ${{ env.pr_body }}
+          echo ${{ env.pr_title }}
+          echo ${{ env.pr_url }}
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
