@@ -34,8 +34,8 @@ jobs:
           # Ensure empty values are handled properly
           [[ -n "$PR_NUMBER" ]] && echo "pr_number=$PR_NUMBER" >> $GITHUB_ENV || echo "pr_number=null" >> $GITHUB_ENV
           [[ -n "$PR_BODY" ]] && echo "pr_body=\"$PR_BODY\"" >> $GITHUB_ENV || echo "pr_body=null" >> $GITHUB_ENV
-          [[ -n "$PR_TITLE" ]] && echo "pr_title=\"$PR_TITLE\"" >> $GITHUB_ENV || echo "pr_title=null" >> $GITHUB_ENV
-          [[ -n "$PR_URL" ]] && echo "pr_url=\"$PR_URL\"" >> $GITHUB_ENV || echo "pr_url=null" >> $GITHUB_ENV
+          [[ -n "$PR_TITLE" ]] && echo "pr_title=$PR_TITLE" >> $GITHUB_ENV || echo "pr_title=null" >> $GITHUB_ENV
+          [[ -n "$PR_URL" ]] && echo "pr_url=$PR_UR"" >> $GITHUB_ENV || echo "pr_url=null" >> $GITHUB_ENV
 
       - name: check variable
         run:
