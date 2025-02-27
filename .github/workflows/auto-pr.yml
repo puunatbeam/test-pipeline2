@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: origin/main
+          ref: main
           fetch-depth: 0
 
       - name: Fetch Lastest Change
